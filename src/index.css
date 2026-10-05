@@ -1,0 +1,147 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+    --font-size: 100%;
+    --gutter: clamp(1.5rem, -2.64rem + 15.53vw, 16rem);
+
+    --background: #F7F3EA;
+    --foreground: #2B2A27;
+    --primary: #2B2A27;
+    --primary-foreground: #F7F3EA;
+    --muted: #EBE5D6;
+    --muted-foreground: #6B6355;
+    --accent: #8A1F11;
+    --accent-foreground: #F7F3EA;
+    --border: rgba(28, 25, 21, 0.12);
+
+    --font-weight-hard: 700;
+    --font-weight-medium: 500;
+    --font-weight-normal: 400;
+}
+
+.dark {
+    --background: #1C1B18;
+    --foreground: #EDE8DC;
+    --primary: #EDE8DC;
+    --primary-foreground: #1C1B18;
+    --muted: #28271F;
+    --muted-foreground: #B3AB98;
+    --accent: #E8734F;
+    --accent-foreground: #1C1B18;
+    --border: rgba(237, 232, 220, 0.14);
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-border: var(--border);
+}
+
+@theme {
+    --font-display: "Space Grotesk", system-ui, sans-serif;
+    --font-sans: "DM Sans", system-ui, sans-serif;
+    --font-mono: "DM Mono", ui-monospace, "Courier New", monospace;
+    --text-2xs: 0.75rem;
+}
+
+html {
+    font-size: var(--font-size);
+    background-color: var(--color-background);
+    scroll-padding-top: 4rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+}
+
+@layer base {
+    /* Space Grotesk: riservato all'hero e ai titoli di sezione — tratto tipografico distintivo */
+    h1 {
+        font-family: var(--font-display);
+        font-weight: var(--font-weight-hard);
+        font-size: clamp(2.8rem, 7.5vw, 7rem);
+        letter-spacing: -0.02em;
+        color: var(--primary);
+    }
+    h2 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: var(--text-3xl);
+        letter-spacing: -0.01em;
+        color: var(--primary);
+    }
+
+    /* DM Sans: titoli funzionali (progetti, sottosezioni) */
+    h3 {
+        font-family: var(--font-sans);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--text-2xl);
+        color: var(--primary);
+    }
+    h4 {
+        font-family: var(--font-sans);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--text-xl);
+        color: var(--primary);
+    }
+    h5 {
+        font-family: var(--font-sans);
+        font-weight: var(--font-weight-medium);
+        font-size: var(--text-base);
+        color: var(--primary);
+    }
+
+    p {
+        font-family: var(--font-sans);
+        font-weight: var(--font-weight-normal);
+        font-size: var(--text-sm);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+    }
+}
+
+@layer components {
+    .font-editorial {
+        font-family: var(--font-display);
+    }
+
+    .label {
+        font-family: var(--font-mono);
+        font-weight: 400;
+        font-size: var(--text-2xs);
+        letter-spacing: 0.02em;
+    }
+}
+
+/* marquee */
+.marquee-group {
+  animation: marquee linear infinite;
+}
+.marquee:hover .marquee-group {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to { transform: translateX(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-group { animation: none; }
+}
+
+/* view transition per il toggle tema */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
