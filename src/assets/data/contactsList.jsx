@@ -18,7 +18,7 @@ export const contacts = [
     },
     {
         icon: GameController03Icon,
-        contact: 'game dev portfolio',
-        href: 'https://giovannicriscuolo.example.com'
+        contact: 'software developer portfolio',
+        href: 'https://gcriscuolo.netlify.app/'
     },
 ];
