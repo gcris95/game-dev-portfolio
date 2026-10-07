@@ -22,7 +22,7 @@ export default function ProjectsSection({id, italian = true}){
                         key={project.title}
                         className="first:border-t border-b border-border transition-opacity duration-300 group-hover/list:opacity-40 hover:opacity-100!"
                     >
-                        <Project {...project} description={project.descriptionEng} />
+                        <Project {...project} description={project.shortDescriptionEng} />
                     </div>
                 ))}
             </div>
