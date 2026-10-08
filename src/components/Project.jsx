@@ -5,7 +5,7 @@ import FadeIn from './FadeIn.jsx'
 
 const EASE = [0.25, 0.1, 0.25, 1]
 
-export default function Project({ title, date, description, tags, image, href, demo='' }) {    
+export default function Project({title, date, description, tags, image, onSelect }) {    
     const cx = useMotionValue('50%')
     const cy = useMotionValue('50%')
     const radius = useMotionValue(0)
@@ -69,13 +69,12 @@ export default function Project({ title, date, description, tags, image, href, d
                 </motion.div>
             )}
 
-            {href && (
-                <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${title}`}
-                    className="absolute inset-0 z-20 rounded-4xl"
+            {onSelect && (
+                <button
+                type="button"
+                onClick={onSelect}
+                aria-label={`Open ${title}`}
+                className="absolute inset-0 z-20 cursor-pointer"
                 />
             )}
         </FadeIn>
