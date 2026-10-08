@@ -15,14 +15,15 @@ export default function App() {
     const [italian, setItalian] = useState(false);
     const [konami, setKonami] = useState(false)
     const [pulse, setPulse] = useState({ id: 0, progress: 0, total: 1 })
+
+    const activate = useCallback(() => setKonami(true), [])
+    const handlePulse = useCallback((progress, total) => setPulse((p) => ({ id: p.id + 1, progress, total })), [])
+    const exit = useCallback(() => setKonami(false), [])
  
     useKonamiCode(
-        useCallback(() => setKonami(true), []),
-        (progress, total) => setPulse((p) => ({ id: p.id + 1, progress, total }))
+        activate,
+        handlePulse,
     )
-
-    const exit = useCallback(() => setKonami(false), [])
-
 
     function getInitialTheme() {
         try {
@@ -49,7 +50,7 @@ export default function App() {
             <div id='top'></div>
             <Navbar dark={dark} setDark={setDark}/>
             <main>
-                <HeroSection konami={konami} pulse={pulse} onExit={exit} />
+                <HeroSection konami={konami} pulse={pulse} onExit={exit} onActivate={activate} onPulse={handlePulse}/>
                 <Marquee/>
                 <ProjectsSection id='works'/>
                 <AboutSection id='about'/>

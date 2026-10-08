@@ -85,13 +85,17 @@ export default function ParticleField({ pulse, game = false, onExit }) {
         // endAt = istante di fine partita, rings = animazioni "pop" in corso
         // timeLeft = riserva di tempo, elapsed = tempo giocato (guida la difficoltà),
         // last = timestamp dell'ultimo frame, per calcolare il delta
-        const g = { active: false, over: false, score: 0, timeLeft: 0, elapsed: 0, last: 0, rings: [] }
+        const g = { active: false, over: false, score: 0, timeLeft: 0, elapsed: 0, last: 0, rings: [], overAt: 0 }
+        let isTouch = false   // ultimo input: touch o no
+        let buttons = {}      // rettangoli dei bottoni disegnati, per l'hit-test
+        let fontFamily = 'ui-monospace, monospace'
 
         // Legge le variabili CSS del tema, così i colori seguono light/dark mode
         function readColors() {
             const style = getComputedStyle(document.documentElement)
             fgRgb = hexToRgb(style.getPropertyValue('--foreground') || '#2B2A27')
             accentRgb = hexToRgb(style.getPropertyValue('--accent') || '#8A1F11')
+            fontFamily = style.getPropertyValue('--font-sans').trim() || fontFamily
         }
 
         // Crea una particella con velocità casuale.
@@ -173,11 +177,26 @@ export default function ParticleField({ pulse, game = false, onExit }) {
 
         // Click: durante il gioco prova a scoppiare la particella più vicina
         function handlePointerDown(e) {
-            if (!g.active || g.over) return            
+            isTouch = e.pointerType === 'touch'   // aggiornato anche fuori dal gioco
+            if (!g.active) return
 
             const rect = section.getBoundingClientRect()
             const x = e.clientX - rect.left
             const y = e.clientY - rect.top
+
+            if (isTouch) {
+                // dopo il game over, ignora i tap per 700 ms
+                if (g.over && performance.now() - g.overAt < 700) return
+
+                const hit = (b) => b && x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h
+                if (hit(buttons.exit)) { onExitRef.current?.(); return }
+                if (g.over) {
+                    if (hit(buttons.play)) startGame()
+                    return
+                }
+            }
+
+            if (g.over) return
 
             // Cerca la particella più vicina al click, entro HIT_RADIUS
             let best = -1, bestDist = HIT_RADIUS
@@ -201,6 +220,7 @@ export default function ParticleField({ pulse, game = false, onExit }) {
 
         // Esc chiude il gioco, delegando al componente padre
         function handleKeyDown(e) {
+            isTouch = false // se l'ultimo input è da tastiera, disattiva il touch
             // Esc per uscire dal gioco
             if (e.key === 'Escape' && g.active) 
                 onExitRef.current?.()
@@ -209,10 +229,23 @@ export default function ParticleField({ pulse, game = false, onExit }) {
                 startGame()
         }
 
+        function drawButton(label, x, y, w, h, key) {
+            buttons[key] = { x, y, w, h }
+            ctx.strokeStyle = `rgba(${fgRgb}, 0.6)`
+            ctx.lineWidth = 1.5
+            ctx.strokeRect(x, y, w, h)
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            ctx.font = `600 13px ${fontFamily}`
+            ctx.fillStyle = `rgba(${fgRgb}, 0.9)`
+            ctx.fillText(label, x + w / 2, y + h / 2)
+        }
+
         // Disegna l'interfaccia del gioco direttamente sul canvas
         function drawHud(speed) {
+            buttons = {};
             ctx.textBaseline = 'top'
-            ctx.font = '600 14px ui-monospace, monospace'
+            ctx.font = `600 14px ${fontFamily}`
 
             ctx.textAlign = 'left'
             ctx.fillStyle = `rgba(${fgRgb}, 0.85)`
@@ -225,27 +258,41 @@ export default function ParticleField({ pulse, game = false, onExit }) {
 
             // Moltiplicatore di velocità sotto il tempo
             if (!g.over) {
-                ctx.font = '12px ui-monospace, monospace'
+                ctx.font = `12px ${fontFamily}`
                 ctx.fillStyle = `rgba(${fgRgb}, 0.45)`
                 ctx.fillText(`x${speed.toFixed(1)}`, width - 16, 36)
             }
 
             ctx.textAlign = 'center'
+            const BW = 120, BH = 40
+
             if (!g.over) {
-                ctx.font = '12px ui-monospace, monospace'
-                ctx.fillStyle = `rgba(${fgRgb}, 0.45)`
-                ctx.fillText('Pop = +time · gold = 3 pts · Esc to exit', width / 2, height - 28)
+                if (isTouch) {
+                    drawButton('EXIT', width / 2 - BW / 2, height - BH - 16, BW, BH, 'exit')
+                } else {
+                    ctx.textBaseline = 'top'
+                    ctx.font = `12px ${fontFamily}`
+                    ctx.fillStyle = `rgba(${fgRgb}, 0.45)`
+                    ctx.fillText('Pop = +time · gold = 3 pts · Esc to exit', width / 2, height - 28)
+                }
             } else {
                 ctx.textBaseline = 'middle'
                 ctx.fillStyle = `rgba(${accentRgb}, 1)`
-                ctx.font = '700 32px ui-monospace, monospace'
+                ctx.font = `700 32px ${fontFamily}`
                 ctx.fillText("TIME'S UP", width / 2, height / 2 - 28)
                 ctx.fillStyle = `rgba(${fgRgb}, 0.9)`
-                ctx.font = '600 20px ui-monospace, monospace'
+                ctx.font = `600 20px ${fontFamily}`
                 ctx.fillText(`Score: ${g.score} · ${(g.elapsed / 1000).toFixed(1)}s survived`, width / 2, height / 2 + 8)
-                ctx.font = '12px ui-monospace, monospace'
-                ctx.fillStyle = `rgba(${fgRgb}, 0.55)`
-                ctx.fillText('Enter to play again · Esc to exit', width / 2, height / 2 + 40)
+
+                if (isTouch) {
+                    const y = height / 2 + 32, gap = 16
+                    drawButton('PLAY AGAIN', width / 2 - BW - gap / 2, y, BW, BH, 'play')
+                    drawButton('EXIT', width / 2 + gap / 2, y, BW, BH, 'exit')
+                } else {
+                    ctx.font = `12px ${fontFamily}`
+                    ctx.fillStyle = `rgba(${fgRgb}, 0.55)`
+                    ctx.fillText('Enter to play again · Esc to exit', width / 2, height / 2 + 40)
+                }
             }
         }
 
@@ -264,7 +311,7 @@ export default function ParticleField({ pulse, game = false, onExit }) {
                     const secs = g.elapsed / 1000
                     g.timeLeft -= dt * (1 + secs * DRAIN_ACCEL) // il tempo scende sempre più veloce
                     g.elapsed += dt
-                    if (g.timeLeft <= 0) { g.timeLeft = 0; g.over = true }
+                    if (g.timeLeft <= 0) { g.timeLeft = 0; g.over = true, g.overAt = now }
                 }
 
                 // le particelle accelerano; a partita finita tornano calme

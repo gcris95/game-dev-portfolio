@@ -1,12 +1,20 @@
 import FadeIn from "../FadeIn"
 import SectionContainer from "../SectionContainer"
 import ParticleField from "../ParticleField"
+import useMultiTap from "../../hooks/useMultiTap"
 
-export default function HeroSection({konami, pulse, onExit}) {
+export default function HeroSection({konami, pulse, onExit, onActivate, onPulse}) {
     const hide = konami ? 'invisible' : ''
 
+    const handleTap = useMultiTap(onActivate, { taps: 5, timeout: 600, onProgress: onPulse })
+
+    const onPointerUp = (e) => {
+        if (konami || e.pointerType !== "touch") return
+        handleTap()
+    }
+
     return(
-        <SectionContainer gap={2} className="relative overflow-hidden min-h-[60svh] justify-center">
+        <SectionContainer gap={2} onPointerUp={onPointerUp} className={`relative overflow-hidden min-h-[60svh] justify-center select-none ${konami ? 'touch-none' : 'touch-manipulation'}`} >
 
             <ParticleField pulse={pulse} game={konami} onExit={onExit} />
 
@@ -26,7 +34,7 @@ export default function HeroSection({konami, pulse, onExit}) {
             <FadeIn delay={0.25} className={`${hide}`}>
                 <p className="text-muted-foreground max-w-lg leading-relaxed">
                     Homo Ludens from birth, I'm passionate about the art of making games. 
-                    With a playcentric approach to game development, I love creating meaningful player experiences.
+                    With a playcentric approach to game development, I love creating meaningful player experiences.                
                 </p>
             </FadeIn>
 
