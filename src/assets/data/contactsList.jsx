@@ -1,4 +1,4 @@
-import {GithubIcon, Mail01Icon, Linkedin, GameController03Icon} from '@hugeicons/core-free-icons'
+import {GithubIcon, Mail01Icon, Linkedin, ComputerProgramming01Icon} from '@hugeicons/core-free-icons'
 
 export const contacts = [
     {
@@ -17,7 +17,7 @@ export const contacts = [
         href: 'https://www.linkedin.com/in/giovanni-criscuolo/'
     },
     {
-        icon: GameController03Icon,
+        icon: ComputerProgramming01Icon,
         contact: 'software developer portfolio',
         href: 'https://gcriscuolo.netlify.app/'
     },

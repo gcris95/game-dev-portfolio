@@ -4,7 +4,7 @@ import SectionContainer from "../SectionContainer"
 import portrait from "../../assets/portrait.webp"
 
 const education = [
-    { degree: 'Master of Science in Computer Science', school: 'Università degli Studi di Milano', year: 'Graduated 2025' },
+    { degree: 'Master of Science in Computer Science - Game Design', school: 'Università degli Studi di Milano', year: 'Graduated 2025' },
     { degree: 'Bachelor of Science in Computer Science', school: 'Università degli Studi di Salerno', year: 'Graduated 2017' },
 ];
 
@@ -17,14 +17,15 @@ export default function AboutSection({id}){
                 <div className="flex flex-col gap-6">
                     <FadeIn delay={0.2} className='pb-8 border-b border-border'>
                         <p className="text-muted-foreground">
-                            I'm a computer science graduate with expertise spanning web development, parallel programming and systems design.
+                            I'm Giovanni, a game designer and programmer currently based in Italy. My passion for video games began when I was 7 with a Game Boy and Pokémon Ruby.
                             <br />
-                            During my Master's degree I specialized in videogame development, deepening my knowledge in algorithms, data structures and software architecture
-                            while building systems that have to be performant and interactive.
-                            
-                            <br /><br />
-                            It also gave me the possibility to gain experience with cross-disciplinary teamwork across narrative, programming, design and art, 
-                            in which I took care primarily of design, gameplay logic implementation and performance optimization.
+                            I started my academic journey with a Bachelor's degree in Computer Science, then I pursued a Master's degree in Computer Science at the University of Milan, 
+                            initially focusing on game programming and then moving to game design aiming to work on player experience.<br />
+                            During my specialization, I deepened my expertise in computer science and could study and practice game mechanics design, level design, 
+                            artificial intelligente, player psychology, narrative design, gameplay programming, prototyping, and other amazing subjects.<br />
+                            I've had the opportunity to work on several projects in multidisciplinary teams and, in 2020, I was part of the team that won the NGD 
+                            contest with the game Disease Me.<br />
+                            Today, I'm passionate about many types of games and about creating emotionally resonant experiences for players.
                         </p>
                     </FadeIn>
 

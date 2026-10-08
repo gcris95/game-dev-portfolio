@@ -12,7 +12,7 @@ export default function HeroSection({konami, pulse, onExit}) {
 
             <FadeIn delay={0.1} className={`${hide}`}>
                 <span className="text-accent  text-[clamp(0.8rem,2vw,0.95rem)] font-medium tracking-wider">
-                    Software Engineer
+                    Game Designer & Developer
                 </span>
             </FadeIn>
 
@@ -25,9 +25,8 @@ export default function HeroSection({konami, pulse, onExit}) {
 
             <FadeIn delay={0.25} className={`${hide}`}>
                 <p className="text-muted-foreground max-w-lg leading-relaxed">
-                    Passionate about the art of coding, with a creative approach to problem-solving and development.
-                    I blend game dev principles and software engineering 
-                    to build engaging, user-centered digital products.
+                    Homo Ludens from birth, I'm passionate about the art of making games. 
+                    With a playcentric approach to game development, I love creating meaningful player experiences.
                 </p>
             </FadeIn>
 
