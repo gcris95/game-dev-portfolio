@@ -55,7 +55,7 @@ html {
     font-size: var(--font-size);
     background-color: var(--color-background);
     scroll-padding-top: 4rem;
-    scrollbar-gutter: stable; /* riserva lo spazio: niente salto quando la scrollbar sparisce */
+    scrollbar-gutter: stable; 
 }
 
 * {

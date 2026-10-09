@@ -89,7 +89,7 @@ export default function ProjectModal({ project, allProjects, onClose, onNavigate
           {descriptionEng.map((section) => (
             <div key={section.heading} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-x-10 gap-y-3 border-t border-border pt-8">
               <div className="text-primary pt-0.5">{section.heading}</div>
-              <div><RichText>{section.body}</RichText></div>
+              <div className="min-w-0"><RichText>{section.body}</RichText></div>
             </div>
           ))}
         </div>
