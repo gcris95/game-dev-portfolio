@@ -33,7 +33,7 @@ export function RichText({ children }) {
         ),
         strong: ({ node, ...props }) => <strong className="font-medium text-foreground" {...props} />,
         img: ({ node, alt, ...props }) => (
-          <img alt={alt ?? ""} loading="lazy" className="w-full bg-muted my-4 first:mt-0" {...props} />
+          <img alt={alt ?? ""} loading="lazy" className="block mx-auto w-full md:w-[75%] bg-muted my-4 first:mt-0" {...props} />
         ),
         pre: ({ node, ...props }) => (
           <pre

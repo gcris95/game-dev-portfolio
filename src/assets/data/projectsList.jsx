@@ -45,6 +45,16 @@ import fsm2 from '../tps/fsm2.webp'
 import investigation from '../tps/investigation.webp'
 import patrolling from '../tps/patrolling.webp'
 
+import STBanner from '../strangerthings/STBanner.webp'
+import broken1 from '../strangerthings/broken1.webp'
+import broken2 from '../strangerthings/broken2.webp'
+import laboratory1 from '../strangerthings/laboratory1.webp'
+import laboratory2 from '../strangerthings/laboratory2.webp'
+import tab1 from '../strangerthings/tab1.webp'
+import tab2 from '../strangerthings/tab2.webp'
+import tab3 from '../strangerthings/tab3.webp'
+import prototype from '../strangerthings/prototype.webp'
+
 const code = (lang, src) => `~~~${lang}\n${src.trim()}\n~~~`;
 
 const isVisible = String.raw`public bool IsSomethingVisible(GameObject something, bool isTrigger = false)
@@ -161,9 +171,49 @@ export const projects = [
         videos: [],
         tags: ['C#', 'Unity', 'Game Programming', 'Genetic Algorithms', 'shape grammar', 'AI', 'PCG' ],
     }, */
- {
+ 
+    {
+        title: 'Drum Beater VR',
+        date: '2022',
+        banner: drumbeater3,
+        teamsize: '2',
+        duration: '4 months',
+        role: ['Game Designer', 'Programmer', 'UX Designer'],
+        shortDescriptionEng: "A VR rhythm game that takes you to play virtual drums to the beat of the music.",
+        descriptionEng: [
+            {heading: "Overview",
+            body: `Drum Beater is a VR rhythm game developed during university's Virtual Reality course. Players use hand tracking via Leap Motion and Google Cardboard to hit virtual drums to the beat of the music, choosing between 3 difficulty levels mapped through custom MIDI files.
+
+MIDI files were chosen as the charting format for several reasons. Compared to custom JSON, they are less error-prone to author and easier to synchronize with the audio track. Compared to automatic beat detection, they give full manual control over note placement and difficulty design. Moreover, a song's track can be converted into a playable chart simply by exporting it from any DAW, with no manual note entry required.
+
+Charts were created and edited through a MIDI editor, keeping the pipeline fast and completely decoupled from code - changing a chart never meant touching Unity scripts. The game was designed taking inspiration from Band Hero and focusing on the expressiveness of drumming.
+
+My contributions to the project include:
+
+- Designed and iterated song charting across 3 difficulty levels using MIDI files;
+- Designed UX feedback systems for timing comprehension, including visual cues for hit accuracy;
+- Programmed beat-matching, timing-windows synchronization, MIDI import, score system, hand gesture recognition, and data saving;
+- Curated the game's look & feel: created UI icons and fine-tuned visual and audio feedback for the VR experience;
+- Managed task planning and edited the gameplay trailer.
+            `},
+
+            ],
+        images: [drumbeater1, drumbeater2, drumbeater3, drumbeater4, drumbeater5],
+        videos: [{
+                    heading: 'Trailer',
+                    url: 'https://www.youtube.com/watch?v=K2DC3FLJgUM',
+                },
+                {
+                    heading: 'Full song gameplay',
+                    url: 'https://www.youtube.com/watch?v=EfNXGw415XY',
+                }
+            ],
+        tags: ['VR', 'C#', 'Unity', 'Game Design', 'UX Design', 'Game Programming', 'Rhythm game'],
+    },
+    {
         title: 'TPS Enemy AI',
         date: '2022',
+        banner: ai1,
         teamsize: '1',
         duration: '4 months',
         role: ['Game Programmer'],
@@ -329,45 +379,9 @@ After testing I've found that using 2 as value for the maximum offsets is a good
         tags: ['C#', 'Unity', 'Game Programming', 'AI', 'HFSM', 'Behaviour tree'],
     },
     {
-        title: 'Drum Beater VR',
-        date: '2022',
-        teamsize: '2',
-        duration: '4 months',
-        role: ['Game Designer', 'Programmer', 'UX Designer'],
-        shortDescriptionEng: "A VR rhythm game that takes you to play virtual drums to the beat of the music.",
-        descriptionEng: [
-            {heading: "Overview",
-            body: `Drum Beater is a VR rhythm game developed during university's Virtual Reality course. Players use hand tracking via Leap Motion and Google Cardboard to hit virtual drums to the beat of the music, choosing between 3 difficulty levels mapped through custom MIDI files.
-
-MIDI files were chosen as the charting format for several reasons. Compared to custom JSON, they are less error-prone to author and easier to synchronize with the audio track. Compared to automatic beat detection, they give full manual control over note placement and difficulty design. Moreover, a song's track can be converted into a playable chart simply by exporting it from any DAW, with no manual note entry required.
-
-Charts were created and edited through a MIDI editor, keeping the pipeline fast and completely decoupled from code - changing a chart never meant touching Unity scripts. The game was designed taking inspiration from Band Hero and focusing on the expressiveness of drumming.
-
-My contributions to the project include:
-
-- Designed and iterated song charting across 3 difficulty levels using MIDI files;
-- Designed UX feedback systems for timing comprehension, including visual cues for hit accuracy;
-- Programmed beat-matching, timing-windows synchronization, MIDI import, score system, hand gesture recognition, and data saving;
-- Curated the game's look & feel: created UI icons and fine-tuned visual and audio feedback for the VR experience;
-- Managed task planning and edited the gameplay trailer.
-            `},
-
-            ],
-        images: [drumbeater1, drumbeater2, drumbeater3, drumbeater4, drumbeater5],
-        videos: [{
-                    heading: 'Trailer',
-                    url: 'https://www.youtube.com/watch?v=K2DC3FLJgUM',
-                },
-                {
-                    heading: 'Full song gameplay',
-                    url: 'https://www.youtube.com/watch?v=EfNXGw415XY',
-                }
-            ],
-        tags: ['VR', 'C#', 'Unity', 'Game Design', 'UX Design', 'Game Programming', 'Rhythm game'],
-    },
-    {
         title: 'Disease Me',
         date: '2020',
+        banner: diseaseme2,
         teamsize: '3',
         duration: '5 month',
         role: ['Game Designer', 'Narrative Designer', 'Programmer'],
@@ -405,10 +419,11 @@ Some of my contributions:
     {
         title: 'Stranger Things: Lost Contacts',
         date: '2020',
+        banner: STBanner,
         teamsize: '3',
         duration: '4 months',
         role: ['Level Designer', 'Narrative Designer'],
-        shortDescriptionEng: "An interactive 3D graphics demo. It features a natural scene that can be explored from a first-person perspective, with changing seasons and weather conditions.",
+        shortDescriptionEng: "A level design project developed during university for a game set in the world of Stranger Things.",
         descriptionEng: [
   {
     heading: "Overview",
@@ -442,8 +457,8 @@ The second section, on the other hand, is set in Hawkins' lab and continues the 
 In this section, the goal of Elevel is to go out of the laboratory using the locked exit door shown in the very first part of the section and the objective of the player is to find 4 of the 5 keys necessary to open the door and put them in their correct slot on the door. Each key has a letter engraved on it and the correct order is deducted by the number printed on the slot that needs to match the letter's position in the alphabet. As a hint to the player, one of the key is already inserted in the right slot.
 
 The player has to explore the laboratory, both in the normal world and in the upside down to find the keys, while having the voice of Dr. Brenner talking and inviting Eleven to stay with him in the Upside Down, recalling a sort of Hellblade kind of voice in the head or also Micolash talking during his bossfight in Bloodborne.
-![Seasons preview](${se4son10})
-![Seasons preview](${se4son10})
+![Seasons preview](${laboratory1})
+![Seasons preview](${laboratory2})
 `,
   },
   {
@@ -452,13 +467,19 @@ The player has to explore the laboratory, both in the normal world and in the up
 
 I wanted to give the player a sense of fear and strong danger in the culmination of this nightmare, and I got inspired by the Scarecrow's nightmares in Batman: Arkham Asylum, putting Eleven in a collapsed environment at the center of which there is the Spider Monster, with the player having to move between rooms avoiding the gaze of the Spider Monster to reach some special rooms that will collapse to damage it. Additionally the player needs to rotate the rooms with a mechanism present in them, so that their exits match the paths.
 
+**Level Diagram**
+
+![Seasons preview](${broken1})
+![Seasons preview](${broken2})
+![Seasons preview](${tab1})
+![Seasons preview](${tab2})
+![Seasons preview](${tab3})
+
+**Physical Prototype**
+
 A physical prototype was made to test the room puzzles in this section, and various people including colleagues, friends, and family members served as testers, using their feedback to balance the difficulty.
-![Seasons preview](${se4son10})
-![Seasons preview](${se4son10})
-![Seasons preview](${se4son10})
-![Seasons preview](${se4son10})
-![Seasons preview](${se4son10})
-![Seasons preview](${se4son10})
+
+![Seasons preview](${prototype})
 `,
   },
     {
@@ -477,6 +498,7 @@ A physical prototype was made to test the room puzzles in this section, and vari
     {
         title: 'Se4son',
         date: '2020',
+        banner: se4son4,
         teamsize: '3',
         duration: '5 months',
         role: ['Programmer'],
@@ -531,6 +553,7 @@ Some of the methods adopted to avoid useless operations and enhance performances
     {
         title: 'Path Of Sacrifice',
         date: '2020',
+        banner: pos1,
         teamsize: '5',
         duration: '3 months',
         role: ['Game Director', 'Level Designer', 'Programmer'],
@@ -574,6 +597,7 @@ But at the end, with the amount of time and experience we had, I am fairly happy
     {
         title: 'Cuberis',
         date: '2019',
+        banner: cuberis3,
         teamsize: '1',
         duration: '1 month',
         role: ['Game Designer', 'Programmer', 'UX Designer'],
