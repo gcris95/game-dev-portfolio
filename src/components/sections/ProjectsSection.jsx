@@ -18,7 +18,7 @@ export default function ProjectsSection({id, italian = true}){
 
     return(
         <SectionContainer id={id} gap={8}>
-            <SectionTitle title='Selected Projects'/>
+            <SectionTitle title='Projects'/>
     
             <div className="group/list flex flex-col">
                 {displayedProjects.map((project, i) => (
@@ -26,7 +26,7 @@ export default function ProjectsSection({id, italian = true}){
                         key={project.title}
                         className="first:border-t border-b border-border transition-opacity duration-300 group-hover/list:opacity-40 hover:opacity-100!"
                     >
-                        <Project {...project} description={project.shortDescriptionEng} onSelect={() => setSelectedProject(project)} index={i+1}/>
+                        <Project {...project} description={project.shortDescriptionEng} onSelect={() => setSelectedProject(project)}/>
                     </div>
                 ))}
             </div>

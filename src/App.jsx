@@ -6,6 +6,7 @@ import Marquee from './components/sections/Marquee.jsx';
 import ProjectsSection from './components/sections/ProjectsSection.jsx';
 import AboutSection from './components/sections/AboutSection.jsx';
 import ContactSection from './components/sections/ContactSection.jsx';
+import JamsSection from './components/sections/JamsSection.jsx';
 import Footer from './components/layout/Footer.jsx';
 import { MotionConfig } from 'motion/react';
 import useKonamiCode from './hooks/useKonamiCode.js';
@@ -53,6 +54,7 @@ export default function App() {
                 <HeroSection konami={konami} pulse={pulse} onExit={exit} onActivate={activate} onPulse={handlePulse}/>
                 <Marquee/>
                 <ProjectsSection id='works'/>
+                <JamsSection id='jams'/>
                 <AboutSection id='about'/>
                 <ContactSection id='contacts'/>
             </main>

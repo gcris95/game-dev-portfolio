@@ -5,7 +5,7 @@ import FadeIn from './FadeIn.jsx'
 
 const EASE = [0.25, 0.1, 0.25, 1]
 
-export default function Project({title, index, description, tags, banner, onSelect }) {    
+export default function Project({title, description, tags, banner, onSelect }) {    
     const cx = useMotionValue('50%')
     const cy = useMotionValue('50%')
     const radius = useMotionValue(0)
@@ -36,9 +36,7 @@ export default function Project({title, index, description, tags, banner, onSele
                 <img src={banner} alt="" loading="lazy" decoding="async"
                      className="md:hidden w-full aspect-video object-cover rounded-2xl" />
             )}
-
-            <span className="label relative z-10 shrink-0 text-muted-foreground">{index}</span>
-
+            
             <div className="relative z-10 flex flex-col gap-4 flex-1 min-w-0">
                 <h3 className="text-primary group-hover:text-accent">{title}</h3>
                 <p className="text-muted-foreground md:max-w-prose lg:max-w-[70ch]">{description}</p>
@@ -62,7 +60,7 @@ export default function Project({title, index, description, tags, banner, onSele
                     className="absolute inset-0 pointer-events-none hidden md:block [@media(hover:none)]:hidden "
                     style={{ clipPath }}
                 >
-                    <img src={banner} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover"/>
+                    <img src={banner} alt="" decoding="async" className="h-full w-full object-cover"/>
                     <div className="absolute inset-0 bg-white/75 dark:bg-black/60"/>                  
                 </motion.div>
             )}

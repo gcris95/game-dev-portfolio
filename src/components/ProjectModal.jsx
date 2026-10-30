@@ -97,8 +97,8 @@ export default function ProjectModal({ project, allProjects, onClose, onNavigate
         {/* Galleria */}
         {images.length > 0 && (
           <div className="mb-16">
-            <div className="label uppercase text-muted-foreground mb-6">Gallery</div>
-            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+            <div className="text-primary mb-6">Gallery</div>
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-4">
               {images.map((src, i) => (
                 <div key={i} className="bg-muted overflow-hidden aspect-4/3">
                   <img src={src} alt={`${title} — image ${i + 2}`} loading="lazy" className="w-full h-full object-cover" />
@@ -111,7 +111,7 @@ export default function ProjectModal({ project, allProjects, onClose, onNavigate
         {/* Video: salta quelli senza url */}
         {videos.filter((v) => v.url).map((v) => (
           <div key={v.heading} className="mb-16">
-            <div className="label uppercase text-muted-foreground mb-6">{v.heading}</div>
+            <div className="text-primary mb-6">{v.heading}</div>
             <div className="aspect-video bg-muted">
               <iframe
                 src={toEmbedUrl(v.url)}
